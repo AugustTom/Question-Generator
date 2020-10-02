@@ -1,9 +1,10 @@
 ---
-title: Minimal Text
+title: Swansea University Third Year Project - Question Generator
 baseurl: "/Question-Generator"
-desc: A minimal blog for off-topic blog entries.
-about: This is a page for my Third Year Project
-image: https://pinto-light.glitch.me/?width=500&height=500&url=https://i.imgur.com/mxUVc2x.jpg&extension=jpg
+desc: This Question generator is intended for education purposes. The goal of the project is to develop a stand alone system that given any text will generate quizzes based on it. Each quiz will consist of 10 questions (given that the text is longer than 10 sentences) on the key sentences and 4 options for answers. 3 of these answers are incorrect but similar to the correct answer.
+
+about: Hi, I am Auguste Tomaseviciute and I am Third Year Computer Science student at Swansea University. This is my blog where I will be keeping updates about my final year project.
+image: 
 excerpt_separator: "<!-- more -->"
 markdown: kramdown
 gems:
