@@ -1,5 +1,5 @@
 ---
-title: Swansea University Third Year Project - Question Generator
+title: Final Year Project - Quiz Generator
 baseurl: "/Question-Generator"
 desc: Quiz generator is a machine learning project. The goal of the project is to create software that will automatically generate a quiz on a text that is provided as an input. The software will test a user's knowledge on any given text by creating a set of questions about the text with a set of appropriate incorrect/correct answers.
 
