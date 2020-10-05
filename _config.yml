@@ -1,7 +1,7 @@
 ---
 title: Swansea University Third Year Project - Question Generator
 baseurl: "/Question-Generator"
-desc: This Question generator is intended for education purposes. The goal of the project is to develop a stand alone system that given any text will generate quizzes based on it. Each quiz will consist of 10 questions (given that the text is longer than 10 sentences) on the key sentences and 4 options for answers. 3 of these answers are incorrect but similar to the correct answer.
+desc: Quiz generator is a machine learning project. The goal of the project is to create software that will automatically generate a quiz on a text that is provided as an input. The software will test a user's knowledge on any given text by creating a set of questions about the text with a set of appropriate incorrect/correct answers.
 
 about: Hi, I am Auguste Tomaseviciute and I am Third Year Computer Science student at Swansea University. This is my blog where I will be keeping updates about my final year project.
 image: 
