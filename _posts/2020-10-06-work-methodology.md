@@ -11,7 +11,7 @@ For the purpose of this developing the project Agile SCRUM methodology was chose
 teams so during this project an adapted version will be used. 
 This framework was picked for few reasons - I have experience for with it and it is adaptive. Iterative deployment and 
 adapting the technique of working allows me to be continuously develop the software and my way of developing it.
-
+<!-- more -->
 The work is organized in short bursts called sprints. Each sprint will be one week with one bigger goal set for the it.
 Each of these goals are divided into stories (task) that should not take more than a day to complete.
 
