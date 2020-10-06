@@ -4,7 +4,6 @@ tags:
 - intro 
 - about
 - aims
-
 desc: post introducing the final-year project "Quiz Generator" including description,inspiration and goals for it. 
 layout: post
 ---
