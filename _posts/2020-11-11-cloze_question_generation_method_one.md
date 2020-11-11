@@ -12,7 +12,7 @@ This is the first try to generate cloze questions.
 
 ## Method
 This is a simple method of generating cloze questions 
-(https://github.com/AugustTom/Question-Generator/blob/gh-pages/Code/main_based_keywords.ipynb). 
+(https://github.com/AugustTom/Question-Generator/blob/gh-pages/Code/main_based_keywords.ipynb). <br>
 Step 1: Fetch text from Wikipedia 
  - To simplify this step TextFetcher (https://github.com/AugustTom/Question-Generator/blob/gh-pages/Code/text_fetcher.py)
   class was created. It returns Wikipedia article on a given topic. For testing 
