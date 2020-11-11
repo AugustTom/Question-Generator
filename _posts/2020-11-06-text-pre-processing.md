@@ -56,4 +56,3 @@ Normalization is another popular practice. I focuses on transforming text into s
  It is an important practice, however, it will not be used as this project will focus on formal texts where abbreviations
  should be encountered.
 
- 
