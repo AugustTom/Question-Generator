@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<section class="header1 cid-s48MCQYojq mbr-fullscreen mbr-parallax-background" id="header1-f" style="background-image: url({{ url_for('static', filename='images/background7.jpg') }})">
+
+    <div class="mbr-overlay" style="opacity: 0.8; background-color: rgb(255, 255, 255);"></div>
+
+    <div class="align-center container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-8">
+<!--                <h1 class="mbr-section-title mbr-fonts-style mb-3 display-1 mb-4"><strong>Generate quizzes</strong></h1>-->
+
+                <p class="mbr-text mbr-fonts-style display-7 mb-4">Your result is {{result}}. {{message}}</p>
+                <a href="/" ><button class="btn btn-success display-4">Go back to home page</button></a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% endblock %}

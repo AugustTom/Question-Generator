@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block scripts %}
+
+
+{% endblock %}
+
+{% block body %}
+<section class="content1 cid-s48vrXhP0J" id="content1-d">
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="title col-12 col-md-9">
+
+                    <div>
+
+                    <h3 class="mbr-section-title mbr-fonts-style align-center mb-4 display-2"><strong>{{title}}</strong></h3>
+                    <form action="/check" method="post">
+                        <ol>
+                            {% for i in range(0, len)%}
+
+                            <div class="question ml-sm-5 pl-sm-5 pt-2">
+                                   <li> <div class="mbr-section-subtitle align-center mbr-fonts-style mb-4 display-7">{{quiz[i]['question']}}</div></li>
+                                    <div class="mbr-section-subtitle align-center mbr-fonts-style mb-4 display-7" id="options">
+                                        {% for choice in quiz[i]['choices']%}
+                                        <label class="options row"><input type="radio"  name="{{i}}" value="{{quiz[i]['choices'][choice]}}"> {{quiz[i]['choices'][choice]}} </label>
+                                        {%endfor%}
+                                    </div>
+                            </div>
+                            {%endfor%}
+                        </ol>
+                    <div class="ml-auto float-right"> <button class="btn btn-success display-4" type="submit">Submit</button> </div>
+                    </form>
+                    </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
