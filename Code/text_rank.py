@@ -1,8 +1,5 @@
-
 import re
 import numpy as np
-
-
 
 
 def clean_up_text(text):
@@ -13,7 +10,7 @@ def clean_up_text(text):
     return text
 
 
-# TODO first sentence is usually the most important
+
 
 def _normalize_matrix(matrix):
     #     normalize matrix
@@ -21,16 +18,19 @@ def _normalize_matrix(matrix):
         if matrix[i].sum() == 0:
             matrix[i] = np.ones(len(matrix))
         matrix[i] /= matrix[i].sum()
-    print(matrix)
+
+    matrix
     return matrix
+
 
 # TODO optimize the similarity by storing each words similarity
 def _token_similarity(token1, token2):
-    if token1.lower == token2.lower:
+    # if token1.lower == token2.lower:
+    if token1.lemma_ == token2.lemma_:
         return 1.0
     if token2 and token2.vector_norm and token1 and token1.vector_norm:
         similarity = token1.similarity(token2)
-        if similarity > 0.6:
+        if similarity > 0.4:
             return similarity
     return 0
 
@@ -41,7 +41,9 @@ def _sentence_similarity(sent, sent2):
         for word2 in sent2:
             similarity_count += _token_similarity(word, word2)
     #         Changed from log10 to log2 !!
-    return similarity_count / (np.log2(len(sent)) + np.log2(len(sent2)))
+    return similarity_count / len(sent) + (len(sent2))
+    #  return similarity_count / (np.log10(len(sent)) + np.log10(len(sent2)))
+
 
 # TODO add division by length to each sentence to equalize the ranking (added log2 instead of log10)
 
@@ -50,11 +52,12 @@ class TextRank:
     This is a modified version of the algorithm that is adapted for the purpose of a project.
     """
 
-    def __init__(self, text, nlp, tag_filter=["NNP", "VBG", "NN", "NNS"]):  # , "ADJ", "JJ", "VB", "VBN"
+    def __init__(self, text, nlp, tag_filter=["NNP", "NN", "NNS"]):  # , "ADJ", "JJ", "VB", "VBN", "VBG",
         self.tag_filter = tag_filter
         self.d = 0.85
         self.convergence_threshold = 0.00001
         self.tokenized_text = nlp(clean_up_text(text))
+
 
     def __get_sentence_list(self):
         """Removes all stop words, filters out by specified tags and lemmatizes text"""
@@ -93,7 +96,9 @@ class TextRank:
                 sent = sentences[i]
                 sent2 = sentences[j]
                 if sent != sent2:
-                    similarity = _sentence_similarity(sent, sent2) + (1/20 * i)
+                    # Based on the the fact that first sentences are more important, code below add weights based on the
+                    # sentences appearance in the text
+                    similarity = _sentence_similarity(sent, sent2) + (1 / (number_of_sentences * i + 1))
                     weights[i][j] = similarity
                     weights[j][i] = similarity
 
@@ -124,6 +129,10 @@ class TextRank:
 
     def get_top_sentences(self, n=3):
         original_sentences = list(self.tokenized_text.sents)
+        total_number_of_sentences = len(original_sentences)
+        if total_number_of_sentences < n:
+            print("Only {} sentences are available. Returning ranked sentence list".format(total_number_of_sentences))
+            n = total_number_of_sentences
         indexes = list(reversed(self.__integrate_weights(self.__create_sentence_similarity_matrix()).argsort()))[:n]
 
         return [original_sentences[i] for i in indexes]
@@ -141,51 +150,44 @@ class TextRank:
 
 
 # TODO replace pronouns sentences with nouns // Coreference resolution https://towardsdatascience.com/coreference-resolution-in-python-aca946541dec
-# TODO add sentence weights based on the sentence order
 
 
-# text = open("Data Generation/Oxygen.txt").read()
-# tx = TextRank(text)
-# # test = self.nlp(text)
-# # for token in test:
-# #         if token.pos_ == "PRON":
-# #             print(token)
-# #
-# for key in tx.get_top_sentences(10):
-#     print(key)
+
+# import spacy
 #
-
-import spacy
-
-nlp = spacy.load('en_core_web_md')
-
-
-text = "Oxygen is the chemical element with the symbol O and atomic number 8. It is a member of the chalcogen group in" \
-       " the periodic table, a highly reactive nonmetal, and an oxidizing agent that readily forms oxides with most" \
-       " elements as well as with other compounds. After hydrogen and helium, oxygen is the third-most abundant element " \
-       "in the universe by mass. At standard temperature and pressure, two atoms of the element bind to form dioxygen, " \
-       "a colorless and odorless diatomic gas with the formula O2. Diatomic oxygen gas constitutes 20.95% of the Earth's " \
-       "atmosphere. Oxygen makes up almost half of the Earth's crust in the form of oxides.Dioxygen provides the energy " \
-       "released in combustion and aerobic cellular respiration, and many major classes of organic molecules in " \
-       "living organisms contain oxygen atoms, such as proteins, nucleic acids, carbohydrates, and fats, " \
-       "as do the major constituent inorganic compounds of animal shells, teeth, and bone. Most of the mass of living " \
-       "organisms is oxygen as a component of water, the major constituent of lifeforms. Oxygen is continuously " \
-       "replenished in Earth's atmosphere by photosynthesis, which uses the energy of sunlight to produce oxygen from " \
-       "water and carbon dioxide. Oxygen is too chemically reactive to remain a free element in air without being " \
-       "continuously replenished by the photosynthetic action of living organisms. Another form (allotrope) of " \
-       "oxygen, ozone (O3), strongly absorbs ultraviolet UVB radiation and the high-altitude ozone layer helps " \
-       "protect the biosphere from ultraviolet radiation. However, ozone present at the surface is a byproduct of " \
-       "smog and thus a pollutant.Oxygen was isolated by Michael Sendivogius before 1604, but it is commonly believed " \
-       "that the element was discovered independently by Carl Wilhelm Scheele, in Uppsala, in 1773 or earlier, " \
-       "and Joseph Priestley in Wiltshire, in 1774. Priority is often given for Priestley because his work was " \
-       "published first. Priestley, however, called oxygen dephlogisticated air, and did not recognize it as a " \
-       "chemical element. The name oxygen was coined in 1777 by Antoine Lavoisier, who first recognized oxygen as a " \
-       "chemical element and correctly characterized the role it plays in combustion.Common uses of oxygen include " \
-       "production of steel, plastics and textiles, brazing, welding and cutting of steels and other metals, " \
-       "rocket propellant, oxygen therapy, and life support systems in aircraft, submarines, spaceflight and diving. "
-
-
-top_sentences = TextRank(text, nlp).get_top_sentences()
-
-for sentence in top_sentences:
-    print(sentence)
+# nlp = spacy.load('en_core_web_md')
+#
+# text = "Oxygen is the chemical element with the symbol O and atomic number 8. It is a member of the chalcogen group " \
+#        "in" \
+#        " the periodic table, a highly reactive nonmetal, and an oxidizing agent that readily forms oxides with most" \
+#        "elements as well as with other compounds. After hydrogen and helium, oxygen is the third-most abundant " \
+#        "element " \
+#        "in " \
+#        "the universe by mass. At standard temperature and pressure, two atoms of the element bind to form dioxygen, "\
+#        "a colorless and odorless diatomic gas with the formula O2. Diatomic oxygen gas constitutes 20.95% of the " \
+#        "Earth's " \
+#        "atmosphere. Oxygen makes up almost half of the Earth's crust in the form of oxides.Dioxygen provides the " \
+#        "energy " \
+#        "released in combustion and aerobic cellular respiration, and many major classes of organic molecules in " \
+#        "living organisms contain oxygen atoms, such as proteins, nucleic acids, carbohydrates, and fats, " \
+#        "as do the major constituent inorganic compounds of animal shells, teeth, and bone. Most of the mass of living "\
+#        "organisms is oxygen as a component of water, the major constituent of lifeforms. Oxygen is continuously " \
+#        "replenished in Earth's atmosphere by photosynthesis, which uses the energy of sunlight to produce oxygen from "\
+#        "water and carbon dioxide. Oxygen is too chemically reactive to remain a free element in air without being " \
+#        "continuously replenished by the photosynthetic action of living organisms. Another form (allotrope) of " \
+#        "oxygen, ozone (O3), strongly absorbs ultraviolet UVB radiation and the high-altitude ozone layer helps " \
+#        "protect the biosphere from ultraviolet radiation. However, ozone present at the surface is a byproduct of " \
+#        "smog and thus a pollutant.Oxygen was isolated by Michael Sendivogius before 1604, but it is commonly believed "\
+#        "that the element was discovered independently by Carl Wilhelm Scheele, in Uppsala, in 1773 or earlier, " \
+#        "and Joseph Priestley in Wiltshire, in 1774. Priority is often given for Priestley because his work was " \
+#        "published first. Priestley, however, called oxygen dephlogisticated air, and did not recognize it as a " \
+#        "chemical element. The name oxygen was coined in 1777 by Antoine Lavoisier, who first recognized oxygen as a " \
+#        "chemical element and correctly characterized the role it plays in combustion.Common uses of oxygen include " \
+#        "production of steel, plastics and textiles, brazing, welding and cutting of steels and other metals, " \
+#        "rocket propellant, oxygen therapy, and life support systems in aircraft, submarines, spaceflight and diving. "
+#
+# # text = "cat is dog. dog is cat. mouse is mouse"
+# top_sentences = TextRank(text, nlp).get_top_sentences(10)
+#
+# for sentence in top_sentences:
+#     print(sentence)

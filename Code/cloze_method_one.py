@@ -1,8 +1,8 @@
 # Imports
 import spacy
-from .text_fetcher import TextFetcher
-from .text_rank import TextRank
-from .cloze_question import ClozeQuestion
+from Code.text_fetcher import TextFetcher
+from Code.text_rank import TextRank
+from Code.cloze_question import ClozeQuestion
 
 
 class ClozeQuizGenerator:

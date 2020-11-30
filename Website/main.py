@@ -3,9 +3,9 @@ import spacy
 import sys
 import secrets
 
-sys.path.append('/Users/augusteto/Documents/University/Year 3/Dissertation/Question-Generator')
-from Code.cloze_method_one import ClozeQuizGenerator
-
+# sys.path.append('/Users/augusteto/Documents/University/Year 3/Dissertation/Question-Generator')
+# from Code.cloze_method_one import ClozeQuizGenerator
+from .cloze_method_one import ClozeQuizGenerator
 nlp = spacy.load('en_core_web_md')
 
 app = Flask(__name__)
@@ -47,12 +47,12 @@ def check_answers():
     correct = 0
     quiz = session['quiz']
     total_questions = len(quiz['questions'])
-    print(session)
+    # print(session)
     for i in range(total_questions):
         answered = request.form[str(i)]
         answer = quiz['questions'][str(i)]['answer']
-        print("answer:{}".format(answer))
-        print("answered:{}".format(answered))
+        # print("answer:{}".format(answer))
+        # print("answered:{}".format(answered))
         if answer == answered:
             correct = correct + 1
     return render_template("results.html", result=correct, message=result_message(correct, total_questions))
@@ -60,7 +60,7 @@ def check_answers():
 
 def get_quiz(title):
     quiz = ClozeQuizGenerator(title=title).get_quiz_dic()
-    print(quiz)
+    # print(quiz)
     return quiz
 
     # if request.method == 'POST':
