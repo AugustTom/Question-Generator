@@ -1,0 +1,19 @@
+---
+title: Final Year Project - Quiz Generator
+image: https://static.thenounproject.com/png/2195399-200.png
+baseurl: "/Question-Generator"
+desc: Quiz generator is a machine learning project. The goal of the project is to create software that will automatically generate a quiz on a text that is provided as an input. The software will test a user's knowledge on any given text by creating a set of questions about the text with a set of appropriate incorrect/correct answers.
+
+about: Hi, I am Auguste Tomaseviciute and I am Third Year Computer Science student at Swansea University. This is my blog where I will be keeping updates about my final year project.
+excerpt_separator: "<!-- more -->"
+markdown: kramdown
+gems:
+- jekyll-paginate
+exclude:
+  - .jekyll-metadata
+  - README.md
+  - CNAME
+paginate: 5
+paginate_path: "/:num/"
+highlighter: rouge
+permalink: pretty

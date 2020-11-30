@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<section class="header1 cid-s48MCQYojq mbr-fullscreen mbr-parallax-background" id="header1-f" style="background-image: url({{ url_for('static', filename='images/background7.jpg') }})">
+
+    <div class="mbr-overlay" style="opacity: 0.8; background-color: rgb(255, 255, 255);"></div>
+
+    <div class="align-center container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-8">
+                <h1 class="mbr-section-title mbr-fonts-style mb-3 display-1 mb-4"><strong>Generate quizzes</strong></h1>
+
+                <p class="mbr-text mbr-fonts-style display-7 mb-4">Welcome to Quiz Generator. This is part of dissertation
+                    project for Swansea University. <br>Enter your topic below
+                </p>
+
+                <form method="POST" action="/generate">
+                    <div class="dragArea row ">
+
+                        <div class="col-lg col-md col-12 form-group" data-for="topic">
+                            <input type="text" name="topic" placeholder="Enter your topic such as Oxygen" data-form-field="text" class="form-control" id="email-form2-l">
+                        </div>
+                        <div class="mbr-section-btn col-md-auto col"><button type="submit" class="btn btn-success display-4">Generate</button></div>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content1 cid-s48vrXhP0J" id="content1-d">
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="title col-12 col-md-9">
+                <h3 class="mbr-section-title mbr-fonts-style align-center mb-4 display-2"><strong>About project</strong></h3>
+                <h4 class="mbr-section-subtitle align-center mbr-fonts-style mb-4 display-7">Inspired by the lack of automation in education,
+                    this project aims to create automated quiz generator on any topic available online.
+                    As this project is part of final year project from Swansea University, it will we under development until 2021 July.
+                </h4>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
