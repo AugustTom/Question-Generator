@@ -3,10 +3,11 @@ import spacy
 from text_fetcher import TextFetcher
 from text_rank import TextRank
 from cloze_question import ClozeQuestion
+from distractors import generate_word_distractors
 
 
 class ClozeQuizGenerator:
-    def __init__(self,nlp, title, number_of_sentences=10, number_of_keywords=10):
+    def __init__(self, nlp, title, number_of_sentences=10, number_of_keywords=10):
         self.title = title
         self.nlp = nlp
         self.text = TextFetcher(title=title).getText()
@@ -35,11 +36,12 @@ class ClozeQuizGenerator:
                     answer = token.text
                 else:
                     question += token.text_with_ws
-
+            # TODO add pos here instead of n
+            ds = generate_word_distractors(answer ,"n")
             if has_keyword:
                 cloze_questions.append(
                     ClozeQuestion(original_sentence=original_sentence, question=question, answer=answer,
-                                  distractors='None'))
+                                  distractors=ds))
         return cloze_questions
 
     def print_quiz(self):
@@ -63,7 +65,7 @@ class ClozeQuizGenerator:
             for j, distractor in enumerate(question.distractors):
                 dist[j] = distractor
             choices = {}
-            for z,choice in enumerate(question.choices):
+            for z, choice in enumerate(question.choices):
                 choices[z] = choice
             questions[i] = {'question': question.question, "answer": question.answer, "distractors": dist,
                             'choices': choices}
@@ -79,4 +81,3 @@ class ClozeQuizGenerator:
 
         return quiz_text
 # print(ClozeQuizGenerator(title="Oxygen").get_quiz_text())
-

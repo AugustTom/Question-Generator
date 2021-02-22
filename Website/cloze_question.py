@@ -6,7 +6,8 @@ class ClozeQuestion:
         self.distractors = distractors
         self.choices =[]
         self.choices.append(answer)
-        self.choices.append(distractors)
+        for distractor in distractors:
+            self.choices.append(distractor)
 
     def get_quiz(self):
         pass
