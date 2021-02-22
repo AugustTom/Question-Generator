@@ -1,14 +1,14 @@
 # Imports
 import spacy
-from .text_fetcher import TextFetcher
-from .text_rank import TextRank
-from .cloze_question import ClozeQuestion
+from text_fetcher import TextFetcher
+from text_rank import TextRank
+from cloze_question import ClozeQuestion
 
 
 class ClozeQuizGenerator:
-    def __init__(self, title, number_of_sentences=10, number_of_keywords=10):
+    def __init__(self,nlp, title, number_of_sentences=10, number_of_keywords=10):
         self.title = title
-        self.nlp = spacy.load('en_core_web_md')
+        self.nlp = nlp
         self.text = TextFetcher(title=title).getText()
         text_rank = TextRank(text=self.text, nlp=self.nlp)
         self.top_sentences = text_rank.get_top_sentences(number_of_sentences)

@@ -10,9 +10,9 @@ class TextFetcher:
         #     self.text = open(p).read()
         # else:
         self.text = wk.page(title).summary
-        file = open(p, "w")
-        file.write(self.text)
-        file.close()
+        # file = open(p, "w")
+        # file.write(self.text)
+        # file.close()
 
 
     def getText(self):

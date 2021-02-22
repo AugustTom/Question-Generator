@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask, render_template, url_for, request, flash, session
 import spacy
 import sys
@@ -5,14 +7,16 @@ import secrets
 
 # sys.path.append('/Users/augusteto/Documents/University/Year 3/Dissertation/Question-Generator')
 # from Code.cloze_method_one import ClozeQuizGenerator
-from .cloze_method_one import ClozeQuizGenerator
-nlp = spacy.load('en_core_web_md')
+from cloze_method_one import ClozeQuizGenerator
+nlp = spacy.load('en_core_web_sm')
 
 app = Flask(__name__)
 # tell Flask to use the above defined config
 
-secret = secrets.token_urlsafe(32)
-app.secret_key = secret
+# secret = secrets.token_urlsafe(32)
+# app.secret_key = secret
+
+app.secret_key = os.environ.get('SOME_SECRET_KEY', None)
 
 
 @app.route('/')
@@ -29,7 +33,7 @@ def process():
         session['quiz'] = quiz
         # else:
         #     quiz = session['quiz']
-    return render_template("quiz.html", quiz=quiz['questions'], title=quiz['title'], len=len(quiz['questions']))
+        return render_template("quiz.html", quiz=quiz['questions'], title=quiz['title'], len=len(quiz['questions']))
 
 
 def result_message(correct, total_questions):
@@ -59,7 +63,7 @@ def check_answers():
 
 
 def get_quiz(title):
-    quiz = ClozeQuizGenerator(title=title).get_quiz_dic()
+    quiz = ClozeQuizGenerator(nlp=nlp, title=title).get_quiz_dic()
     # print(quiz)
     return quiz
 
@@ -94,4 +98,4 @@ def get_quiz(title):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
