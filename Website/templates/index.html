@@ -24,10 +24,11 @@
                     </div>
 
                 </form>
+
                 {% if errorMessage %}
-                <span class="flex items-center font-medium tracking-wide text-red-500 text-s mt-1 ml-1">
-			        {{ errorMessage }}
-		        </span>
+                    <div class="mbr-text mbr-fonts-style display-7 alert alert-danger" role="alert">
+                      {{ errorMessage }}
+                    </div>
                 {% endif %}
 
             </div>
@@ -47,6 +48,17 @@
                 </h4>
 
             </div>
+            <br>
+            <div class="title col-12 col-md-9">
+                <h3 class="mbr-section-title mbr-fonts-style align-center mb-4 display-2"><strong>Disclaimer</strong></h3>
+                <h4 class="mbr-section-subtitle align-center mbr-fonts-style mb-4 display-7">
+                    This website relies on producing quizzes based on Wikipedia articles. User
+                    judgement when choosing a topic is advised as there is no filtering in place to
+                    prevent incorrect or hurtful content from being generated.
+                </h4>
+
+            </div>
+
         </div>
     </div>
 </section>

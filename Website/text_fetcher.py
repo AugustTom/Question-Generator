@@ -7,9 +7,9 @@ def checkTopic(title):
         if search[0].lower() == title.lower():
             return 1
         else:
-            raise Exception("Unclear topic, choose one of these:", search)
+            raise KeyError("Unclear topic, choose one of these:", search)
     elif len(search) == 0:
-        raise Exception("No text was found!")
+        raise KeyError("No text was found!")
 
 
 class TextFetcher:
@@ -21,11 +21,11 @@ class TextFetcher:
                 try:
                     self.text = wk.page(title).summary
                 except Exception:
-                    raise Exception("Sorry, an error occured while fetching text")
+                    raise KeyError("Sorry, an error occurred while fetching text")
             else:
-                raise Exception("Unclear topic, choose one of these:", search)
+                raise KeyError("Unclear topic, choose one of these:", search)
         elif len(search) == 0:
-            raise Exception("No text was found!")
+            raise KeyError("No text was found!")
 
     def getText(self):
         return self.text
