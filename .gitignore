@@ -2,3 +2,7 @@
 Website/venv/
 
 Website/.idea/
+
+.DS_Store
+
+.idea/

@@ -3,11 +3,12 @@ import os
 from flask import Flask, render_template, url_for, request, flash, session
 import spacy
 import sys
-import secrets
+
 
 # sys.path.append('/Users/augusteto/Documents/University/Year 3/Dissertation/Question-Generator')
 # from Code.cloze_method_one import ClozeQuizGenerator
 from cloze_method_one import ClozeQuizGenerator
+from text_fetcher import checkTopic
 nlp = spacy.load('en_core_web_sm')
 
 app = Flask(__name__)
@@ -28,6 +29,10 @@ def index():
 def process():
     if request.method == 'POST':
         title = request.form['topic']
+        try:
+            checkTopic(title)
+        except KeyError as error:
+            return render_template("index.html", length=0, errorMessage=str(error))
         # if 'quiz' not in session:
         quiz = get_quiz(title)
         session['quiz'] = quiz

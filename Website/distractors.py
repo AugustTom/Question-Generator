@@ -81,13 +81,13 @@ def get_distractors_wordnet(syn, word):
         if name == orig_word:
             continue
         name = name.replace("_", " ")
-        name = " ".join(w.capitalize() for w in name.split())
+        name = " ".join(w for w in name.split())
         if name is not None and name not in distractors:
             distractors.append(name)
     return distractors
 
 
-def generate_word_distractors(original_word, pos):
+def generate_word_distractors(original_word):
     distractor_list = []
     synset_to_use = wn.synsets(original_word)
     if len(synset_to_use) > 0:

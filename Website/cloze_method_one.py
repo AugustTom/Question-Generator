@@ -10,7 +10,9 @@ class ClozeQuizGenerator:
     def __init__(self, nlp, title, number_of_sentences=10, number_of_keywords=10):
         self.title = title
         self.nlp = nlp
+
         self.text = TextFetcher(title=title).getText()
+
         text_rank = TextRank(text=self.text, nlp=self.nlp)
         self.top_sentences = text_rank.get_top_sentences(number_of_sentences)
         self.top_keywords = text_rank.get_top_keywords(number_of_keywords)
@@ -37,7 +39,7 @@ class ClozeQuizGenerator:
                 else:
                     question += token.text_with_ws
             # TODO add pos here instead of n
-            ds = generate_word_distractors(answer ,"n")
+            ds = generate_word_distractors(answer )
             if has_keyword:
                 cloze_questions.append(
                     ClozeQuestion(original_sentence=original_sentence, question=question, answer=answer,
