@@ -1,1 +1,0 @@
-# Method to generate distractors
